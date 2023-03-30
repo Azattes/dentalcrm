@@ -8,4 +8,3 @@ class CreateXraySchema(BaseModel):
     patient: int
     date: date
     comment: str
-    image: str
