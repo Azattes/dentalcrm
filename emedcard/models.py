@@ -40,3 +40,14 @@ class Allergy(ormar.Model):
 
     class Meta(BaseMeta):
         tablename = "allergy"
+
+
+class Xray(ormar.Model):
+    id: int = ormar.Integer(primary_key=True)
+    patient: int = ormar.ForeignKey(User, related_name="xray.patient")
+    date: date = ormar.Date()
+    comment: str = ormar.Text()
+    image_url: str = ormar.String(max_length=255)
+
+    class Meta(BaseMeta):
+        tablename = "xrays"

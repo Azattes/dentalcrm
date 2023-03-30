@@ -18,7 +18,7 @@ config.set_main_option("sqlalchemy.url", get_settings().database_url)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from e_med_card.models import *  # noqa
+from emedcard.models import *  # noqa
 from users.models import *  # noqa
 
 # add your model's MetaData object here
