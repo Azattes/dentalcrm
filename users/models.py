@@ -1,3 +1,6 @@
+import datetime
+from typing import Optional
+
 import ormar
 from users.types import RoleType
 
@@ -23,3 +26,24 @@ class User(ormar.Model):
     class Meta(BaseMeta):
         tablename = "users"
         constaints = [ormar.UniqueColumns("email")]
+
+
+class Schedule(ormar.Model):
+    id: int = ormar.Integer(primary_key=True)
+    date: datetime.date = ormar.Date()
+    start_time: datetime.time = ormar.Time()
+    end_time: datetime.time = ormar.Time()
+    user: Optional[User] = ormar.ForeignKey(User)
+
+    class Meta(BaseMeta):
+        tablename = "schedules"
+
+
+class Appointment(ormar.Model):
+    id: int = ormar.Integer(primary_key=True)
+    doctor: int = ormar.ForeignKey(User, related_name="doctor")
+    schedule: int = ormar.ForeignKey(Schedule)
+    patient: int = ormar.ForeignKey(User, related_name="patient")
+
+    class Meta(BaseMeta):
+        tablename = "appointments"
