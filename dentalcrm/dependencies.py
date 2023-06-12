@@ -1,7 +1,9 @@
 from functools import lru_cache
-from dentalcrm.settings import Settings
+
 from databases import Database
 from sqlalchemy import MetaData
+
+from dentalcrm.settings import Settings
 
 
 @lru_cache
@@ -17,4 +19,4 @@ def get_database():
 
 @lru_cache
 def get_metadata():
-    return MetaData
+    return MetaData()
