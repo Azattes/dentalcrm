@@ -21,12 +21,21 @@ class Disease(ormar.Model):
 
 class EMedCard(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
-    user: int = ormar.ForeignKey(
-        User, ondelete=ormar.ReferentialAction.CASCADE, nullable=False
+    patient: int = ormar.ForeignKey(
+        User,
+        ondelete=ormar.ReferentialAction.CASCADE,
+        nullable=False,
+        related_name="emedcard_patient",
     )
     disease: int = ormar.ForeignKey(Disease, nullable=True)
     date: date = ormar.Date(default=date.today())
     treatment: str = ormar.Text()
+    doctor: int = ormar.ForeignKey(
+        User,
+        ondelete=ormar.ReferentialAction.CASCADE,
+        nullable=False,
+        related_name="emedcard_doctor",
+    )
 
     class Meta(BaseMeta):
         tablename = "e_med_card"
