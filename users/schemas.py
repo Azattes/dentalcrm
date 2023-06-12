@@ -1,3 +1,5 @@
+from datetime import date
+
 from pydantic import BaseModel
 
 
@@ -8,3 +10,8 @@ class UserSchema(BaseModel):
     email: str
     role: str
     password: str
+
+
+class ReadScheduleSchema(BaseModel):
+    doctor_id: int
+    date: date

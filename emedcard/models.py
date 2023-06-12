@@ -24,7 +24,7 @@ class EMedCard(ormar.Model):
     user: int = ormar.ForeignKey(
         User, ondelete=ormar.ReferentialAction.CASCADE, nullable=False
     )
-    disease: int = ormar.ForeignKey(Disease)
+    disease: int = ormar.ForeignKey(Disease, nullable=True)
     date: date = ormar.Date(default=date.today())
     treatment: str = ormar.Text()
 

@@ -2,7 +2,7 @@ import datetime
 from typing import Optional
 
 import ormar
-from users.types import RoleType
+from users.types import AppointmentStatusType, RoleType
 
 from dentalcrm.dependencies import get_database, get_metadata
 
@@ -44,6 +44,11 @@ class Appointment(ormar.Model):
     doctor: int = ormar.ForeignKey(User, related_name="doctor")
     schedule: int = ormar.ForeignKey(Schedule)
     patient: int = ormar.ForeignKey(User, related_name="patient")
+    status: str = ormar.String(
+        choices=AppointmentStatusType,
+        max_length=15,
+        default=AppointmentStatusType.scheduled,
+    )
 
     class Meta(BaseMeta):
         tablename = "appointments"
