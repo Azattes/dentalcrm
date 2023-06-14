@@ -2,6 +2,7 @@ import uuid
 from datetime import date
 
 import aiofiles
+from dentalcrm.emedcard.models import Disease
 from emedcard.models import Allergy
 from emedcard.models import EMedCard, Xray
 from fastapi import APIRouter, File, Form, UploadFile
@@ -42,7 +43,13 @@ async def get_xray(date: date, patient):
 
 @router.post(path="/e-med-card/", tags=["e-med-card"], status_code=201)
 async def create_emedcard(data: EMedCard):
-    instance = await data.save()
+    disease, _ = await Disease.objects.get_or_create(name=data.disease)
+    instance = await EMedCard.objects.create(
+        patient=data.patient,
+        doctor=data.doctor,
+        disease=disease.id,
+        treatment=data.treatment,
+    )
     return instance
 
 
