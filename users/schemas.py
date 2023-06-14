@@ -15,3 +15,8 @@ class UserSchema(BaseModel):
 class ReadScheduleSchema(BaseModel):
     doctor_id: int
     date: date
+
+
+class LoginSchema(BaseModel):
+    email: str
+    password: str

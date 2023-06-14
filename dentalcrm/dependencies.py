@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 from databases import Database
+from fastapi_jwt_auth import AuthJWT
 from sqlalchemy import MetaData
 
 from dentalcrm.settings import Settings
@@ -20,3 +21,8 @@ def get_database():
 @lru_cache
 def get_metadata():
     return MetaData()
+
+
+@AuthJWT.load_config
+def get_config():
+    return Settings()
