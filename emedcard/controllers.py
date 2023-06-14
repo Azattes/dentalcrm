@@ -2,9 +2,7 @@ import uuid
 from datetime import date
 
 import aiofiles
-from dentalcrm.emedcard.models import Disease
-from emedcard.models import Allergy
-from emedcard.models import EMedCard, Xray
+from emedcard.models import Allergy, Disease, EMedCard, Xray
 from fastapi import APIRouter, File, Form, UploadFile
 from users.models import User
 
