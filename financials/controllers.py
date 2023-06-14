@@ -1,10 +1,12 @@
 from datetime import date
 
 from fastapi import APIRouter
-from models import Accounting, Loss, ProfitLoss
-from services.get_date_range_inclusive import get_date_range_inclusive
+from financials.models import Accounting, Loss, ProfitLoss
+from financials.services.get_date_range_inclusive import (
+    get_date_range_inclusive,
+)
 
-router = APIRouter(prefix="/financials/")
+router = APIRouter(prefix="/financials")
 
 
 @router.post(path="/accounting/", tags=["financials"], status_code=201)

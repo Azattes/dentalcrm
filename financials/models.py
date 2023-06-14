@@ -13,13 +13,13 @@ class BaseMeta(ormar.ModelMeta):
 
 class Accounting(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
-    admin: int = ormar.ForeignKey(User, related_name="admin")
-    patient: int = ormar.ForeignKey(User, related_name="patient")
+    admin: int = ormar.ForeignKey(User, related_name="fin_admin")
+    patient: int = ormar.ForeignKey(User, related_name="fin_patient")
     date: datetime = ormar.DateTime(default=datetime.now())
     paid_amount: int = ormar.Integer()
     desctiption: str = ormar.Text()
 
-    class Meta:
+    class Meta(BaseMeta):
         tablename = "accounting"
 
 
@@ -31,15 +31,16 @@ class ProfitLoss(ormar.Model):
     total_expenses: float = ormar.Float(default=0)
     total: float = ormar.Float(default=0)
 
-    class Meta:
+    class Meta(BaseMeta):
         tablename = "profit_loss"
 
 
 class Loss(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
+    admin: int = ormar.ForeignKey(User, related_name="fin_loss_admin")
     loss: float = ormar.Float(default=0)
     date: date = ormar.Date(default=datetime.now())
     description: str = ormar.Text()
 
-    class Meta:
+    class Meta(BaseMeta):
         tablename = "loss"
