@@ -1,24 +1,23 @@
 from datetime import date
 
+from asyncpg import UniqueViolationError
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi_jwt_auth import AuthJWT
 from ormar.exceptions import NoMatch
 from users.models import Appointment, Schedule, User
 from users.schemas import LoginSchema
 
-from dentalcrm.exceptions import (
-    IncorrectDataForLoginException,
-    NotFoundException,
-)
+from dentalcrm.exceptions import NotFoundException
 
 router = APIRouter()
 
 
-@router.post(
-    path="/users/", tags=["users"], response_model=User, status_code=201
-)
+@router.post(path="/users/", tags=["users"], status_code=201)
 async def create_user(data: User):
-    instance = await data.save()
+    try:
+        instance = await data.save()
+    except UniqueViolationError:
+        return {"detail": "User with this email already exist"}
     return instance
 
 
@@ -59,7 +58,7 @@ async def create_appointment(data: Appointment):
     return instance
 
 
-@router.post(path="/auth/login/")
+@router.post(path="/auth/login/", tags=["auth"])
 async def login(data: LoginSchema, Authorize: AuthJWT = Depends()):
     try:
         user = await User.objects.get(email=data.email)
@@ -76,7 +75,7 @@ async def login(data: LoginSchema, Authorize: AuthJWT = Depends()):
     return {"detail": "Incorrect authorization data"}
 
 
-@router.post("/auth/refresh/")
+@router.post(path="/auth/refresh/", tags=["auth"])
 def refresh(Authorize: AuthJWT = Depends()):
     """
     The jwt_refresh_token_required() function insures a valid refresh

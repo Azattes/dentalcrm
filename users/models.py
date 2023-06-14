@@ -17,7 +17,7 @@ class User(ormar.Model):
     surname: str = ormar.String(max_length=150)
     name: str = ormar.String(max_length=150)
     patronymic: str = ormar.String(max_length=150)
-    email: str = ormar.String(max_length=255)
+    email: str = ormar.String(max_length=255, unique=True)
     role: str = ormar.String(
         choices=RoleType, max_length=10, default=RoleType.patient
     )
