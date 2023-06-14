@@ -17,6 +17,7 @@ class Accounting(ormar.Model):
     patient: int = ormar.ForeignKey(User, related_name="patient")
     date: datetime = ormar.DateTime(default=datetime.now())
     paid_amount: int = ormar.Integer()
+    desctiption: str = ormar.Text()
 
     class Meta:
         tablename = "accounting"
@@ -28,6 +29,17 @@ class ProfitLoss(ormar.Model):
     end_date: date = ormar.Date()
     total_income: float = ormar.Float(default=0)
     total_expenses: float = ormar.Float(default=0)
+    total: float = ormar.Float(default=0)
 
     class Meta:
         tablename = "profit_loss"
+
+
+class Loss(ormar.Model):
+    id: int = ormar.Integer(primary_key=True)
+    loss: float = ormar.Float(default=0)
+    date: date = ormar.Date(default=datetime.now())
+    description: str = ormar.Text()
+
+    class Meta:
+        tablename = "loss"
