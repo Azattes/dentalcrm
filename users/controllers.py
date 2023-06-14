@@ -15,9 +15,7 @@ async def create_user(data: User):
     return instance
 
 
-@router.get(
-    path="/users/", tags=["users"], response_model=User, status_code=200
-)
+@router.get(path="/users/", tags=["users"], status_code=200)
 async def get_users(role: str = None):
     if role:
         instance = await User.objects.filter(role=role).all()
