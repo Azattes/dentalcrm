@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from asyncpg import UniqueViolationError
 from fastapi import APIRouter, Depends, HTTPException
@@ -72,7 +72,9 @@ async def login(data: LoginSchema, Authorize: AuthJWT = Depends()):
     except NoMatch:
         raise NotFoundException
     if user.email == data.email and user.password == data.password:
-        access_token = Authorize.create_access_token(subject=data.email)
+        access_token = Authorize.create_access_token(
+            subject=data.email, expires_time=timedelta(days=30)
+        )
         refresh_token = Authorize.create_refresh_token(subject=data.email)
 
         return {
