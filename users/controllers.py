@@ -30,6 +30,13 @@ async def get_users(role: str = None):
     return instance
 
 
+@router.get(path="/get-users/", tags=["users"], status_code=200)
+async def get_users_by_token(Authorize: AuthJWT = Depends()):
+    current_user = Authorize.get_jwt_subject()
+    user = await User.objects.get(email=current_user)
+    return user
+
+
 @router.get(path="/schedule/", tags=["schedule"], response_model=Schedule)
 async def get_schedule(doctor_id: int, date: date):
     try:
