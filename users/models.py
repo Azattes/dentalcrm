@@ -19,7 +19,7 @@ class User(ormar.Model):
     patronymic: str = ormar.String(max_length=150)
     email: str = ormar.String(max_length=255, unique=True)
     role: str = ormar.String(
-        choices=RoleType, max_length=10, default=RoleType.patient
+        choices=RoleType, max_length=15, default=RoleType.patient
     )
     password: str = ormar.String(max_length=255)
 
