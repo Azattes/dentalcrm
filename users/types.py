@@ -5,7 +5,7 @@ class RoleType(str, Enum):
     doctor = "Врач"
     patient = "Пациент"
     admin = "Админ"
-    radiologist = "Рентгенолог"
+    radiologist = "Рентген"
 
 
 class AppointmentStatusType(str, Enum):
