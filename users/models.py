@@ -1,6 +1,5 @@
 import datetime
 from typing import Optional
-
 import ormar
 from users.types import AppointmentStatusType, RoleType
 
