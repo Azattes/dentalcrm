@@ -61,7 +61,7 @@ async def create_emedcard(data: Allergy):
 @router.get(path="/allergy/", tags=["e-med-card"], status_code=200)
 async def get_emedcard(patient_id: int):
     patient = await User.objects.get(id=patient_id)
-    allergy = await Allergy.objects.filter(patient=patient.id).all()
+    allergy = await Allergy.objects.filter(user=patient.id).all()
     return allergy
 
 
