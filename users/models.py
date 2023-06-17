@@ -37,6 +37,7 @@ class Schedule(ormar.Model):
 
     class Meta(BaseMeta):
         tablename = "schedules"
+        constraints = [ormar.UniqueColumns("date", "user")]
 
 
 class Appointment(ormar.Model):
