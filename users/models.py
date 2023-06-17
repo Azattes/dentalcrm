@@ -41,7 +41,8 @@ class Schedule(ormar.Model):
 
 class Appointment(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
-    doctor: int = ormar.ForeignKey(User, related_name="doctor")
+    start_time: datetime = ormar.Time(nullable=True)
+    end_time: datetime = ormar.Time(nullable=True)
     schedule: int = ormar.ForeignKey(Schedule)
     patient: int = ormar.ForeignKey(User, related_name="patient")
     status: str = ormar.String(
