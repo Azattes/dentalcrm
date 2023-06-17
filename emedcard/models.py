@@ -45,7 +45,6 @@ class Allergy(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
     user: int = ormar.ForeignKey(User)
     allergen: str = ormar.String(max_length=255)
-    description: str = ormar.Text()
 
     class Meta(BaseMeta):
         tablename = "allergy"

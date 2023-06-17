@@ -20,6 +20,7 @@ if config.config_file_name is not None:
 
 from emedcard.models import *  # noqa
 from users.models import *  # noqa
+from financials.models import *  # noqa
 
 # add your model's MetaData object here
 # for 'autogenerate' support
