@@ -68,5 +68,9 @@ async def get_emedcard(patient_id: int):
 @router.get(path="/e-med-card/", tags=["e-med-card"], status_code=200)
 async def get_emedcard(patient_id: int):
     patient = await User.objects.get(id=patient_id)
-    emedcard = await EMedCard.objects.filter(patient=patient.id).all()
+    emedcard = (
+        await EMedCard.objects.select_related(["doctor", "patient"])
+        .filter(patient=patient.id)
+        .all()
+    )
     return emedcard
