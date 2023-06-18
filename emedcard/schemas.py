@@ -10,13 +10,9 @@ class CreateXraySchema(BaseModel):
     comment: str
 
 
-class CreateDiseaseSchema(BaseModel):
-    name: str
-
-
 class CreateEMedCardSchema(BaseModel):
     patient: int
     disease: int
     treatment: str
     doctor: int
-    disease: CreateDiseaseSchema
+    disease: str

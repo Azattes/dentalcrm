@@ -26,15 +26,14 @@ async def get_total_net(start_date: date, end_date: date):
     date_range = await get_date_range_inclusive(
         start_date=start_date, end_date=end_date
     )
-    x = await Accounting.objects.filter(date__in=date_range).all()
-    x2 = await Loss.objects.filter(date__in=date_range).all()
-    print(date_range, x, x2)
     profit = await Accounting.objects.filter(date__in=date_range).sum(
         "paid_amount"
     )
     loss = await Loss.objects.filter(date__in=date_range).sum("loss")
-    if profit or loss is None:
-        return {"detail": "brat tut oshibka libo profit libo loss pustoe"}
+    if profit is None:
+        profit = 0
+    elif loss is None:
+        loss = 0
     net = profit - loss
     await ProfitLoss.objects.create(
         start_date=start_date,

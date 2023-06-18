@@ -27,7 +27,7 @@ class EMedCard(ormar.Model):
         nullable=False,
         related_name="emedcard_patient",
     )
-    disease: int = ormar.ForeignKey(Disease, nullable=True)
+    disease: str = ormar.String(max_length=255, nullable=True)
     date: date = ormar.Date(default=date.today())
     treatment: str = ormar.Text()
     doctor: int = ormar.ForeignKey(

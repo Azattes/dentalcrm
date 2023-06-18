@@ -40,9 +40,9 @@ async def get_users_by_token(Authorize: AuthJWT = Depends()):
 @router.get(path="/schedule/", tags=["schedule"], response_model=Schedule)
 async def get_schedule(doctor_id: int, date: date):
     try:
-        schedule = await Schedule.objects.select_related("appointments").get(
-            user=doctor_id, date=date
-        )
+        schedule = await Schedule.objects.select_related(
+            ["appointments", "user"]
+        ).get(user=doctor_id, date=date)
     except NoMatch:
         raise HTTPException(status_code=404, detail="Not found")
     return schedule

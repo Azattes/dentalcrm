@@ -42,11 +42,11 @@ async def get_xray(date: date, patient):
 
 @router.post(path="/e-med-card/", tags=["e-med-card"], status_code=201)
 async def create_emedcard(data: CreateEMedCardSchema):
-    disease, _ = await Disease.objects.get_or_create(name=data.disease)
+    await Disease.objects.get_or_create(name=data.disease)
     instance = await EMedCard.objects.create(
         patient=data.patient,
         doctor=data.doctor,
-        disease=disease.id,
+        disease=data.disease,
         treatment=data.treatment,
     )
     return instance
