@@ -33,7 +33,7 @@ async def create_xray(
 
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
-async def get_xray(date: date, patient):
+async def get_xray(patient: int):
     xrays = await Xray.objects.filter(patient=patient).all()
     return xrays
 
