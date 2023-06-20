@@ -53,7 +53,7 @@ class Allergy(ormar.Model):
 class Xray(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
     patient: int = ormar.ForeignKey(User, related_name="xray.patient")
-    date: date = ormar.Date()
+    date: date = ormar.Date(default=date.today())
     comment: str = ormar.Text()
     image_url: str = ormar.String(max_length=255)
 

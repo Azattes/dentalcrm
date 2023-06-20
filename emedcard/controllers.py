@@ -12,7 +12,6 @@ router = APIRouter()
 
 @router.post(path="/xray/", tags=["x-ray"])
 async def create_xray(
-    date: date = Form(),
     comment: str = Form(),
     patient: int = Form(),
     image: UploadFile = File(),
@@ -26,7 +25,6 @@ async def create_xray(
     image_url = f"/media/{filename}"
     xray = await Xray.objects.create(
         image_url=image_url,
-        date=date,
         comment=comment,
         patient=patient,
     )
@@ -36,7 +34,7 @@ async def create_xray(
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
 async def get_xray(date: date, patient):
-    xrays = await Xray.objects.filter(data=date, patient=patient).all()
+    xrays = await Xray.objects.filter(patient=patient).all()
     return xrays
 
 
