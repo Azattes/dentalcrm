@@ -1,13 +1,18 @@
+import urllib.request
 import uuid
 from datetime import date
+from pathlib import Path
 
 import aiofiles
 from emedcard.models import Allergy, Disease, EMedCard, Xray
 from emedcard.schemas import CreateEMedCardSchema
 from fastapi import APIRouter, File, Form, UploadFile
+from fastapi.responses import FileResponse
 from users.models import User
 
 router = APIRouter()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 @router.post(path="/xray/", tags=["x-ray"])
@@ -30,6 +35,20 @@ async def create_xray(
     )
 
     return xray
+
+
+@router.get(path="/xray-image/", tags=["x-ray"])
+async def get_xray_image(image: str):
+    image_full_path = BASE_DIR / "media" / image
+    print(image_full_path)
+    print(BASE_DIR)
+
+    # Проверка существования файла
+    if not image_full_path.is_file():
+        raise FileNotFoundError
+
+    # Возвращение фотографии в виде FileResponse
+    return FileResponse(image_full_path)
 
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
