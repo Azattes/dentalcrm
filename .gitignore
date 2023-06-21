@@ -28,7 +28,7 @@ MANIFEST
 .idea/
 data/db
 static/
-media/
+
 text_for_invitation.txt
 list-words.xlsx
 
