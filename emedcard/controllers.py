@@ -27,7 +27,7 @@ async def create_xray(
         content = await image.read()
         await f.write(content)
 
-    image_url = f"/media/{filename}"
+    image_url = f"/api/xray-image/?image={filename}"
     xray = await Xray.objects.create(
         image_url=image_url,
         comment=comment,
@@ -46,7 +46,7 @@ async def get_xray_image(image: str):
         raise FileNotFoundError
 
     # Возвращение фотографии в виде FileResponse
-    return image_full_path
+    return FileResponse(image_full_path)
 
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
