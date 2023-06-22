@@ -40,15 +40,13 @@ async def create_xray(
 @router.get(path="/xray-image/", tags=["x-ray"])
 async def get_xray_image(image: str):
     image_full_path = BASE_DIR / "media" / image
-    print(image_full_path)
-    print(BASE_DIR)
 
     # Проверка существования файла
     if not image_full_path.is_file():
         raise FileNotFoundError
 
     # Возвращение фотографии в виде FileResponse
-    return FileResponse(image_full_path)
+    return image_full_path
 
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
