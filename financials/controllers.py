@@ -30,10 +30,11 @@ async def get_total_net(start_date: date, end_date: date):
         "paid_amount"
     )
     loss = await Loss.objects.filter(date__in=date_range).sum("loss")
-    if profit is None:
+    if profit == None:
         profit = 0
-    elif loss is None:
+    elif loss == None:
         loss = 0
+    print(profit, loss)
     net = profit - loss
     await ProfitLoss.objects.create(
         start_date=start_date,
