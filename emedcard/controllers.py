@@ -1,7 +1,6 @@
-import urllib.request
 import uuid
-from datetime import date
 from pathlib import Path
+from typing import List
 
 import aiofiles
 from emedcard.models import Allergy, Disease, EMedCard, Xray
@@ -47,6 +46,12 @@ async def get_xray_image(image: str):
 
     # Возвращение фотографии в виде FileResponse
     return FileResponse(image_full_path)
+
+
+@router.delete(path="/xray/", tags=["x-ray"], status_code=200)
+async def get_xray(xray_id: int):
+    xrays = await Xray.objects.delete(id=xray_id)
+    return xrays
 
 
 @router.get(path="/xray/", tags=["x-ray"], status_code=200)
